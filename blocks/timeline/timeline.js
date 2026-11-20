@@ -14,7 +14,7 @@ export default function decorate(block) {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     items.forEach((item, i) => {
       item.style.opacity = '0';

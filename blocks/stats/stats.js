@@ -1,5 +1,4 @@
 export default function decorate(block) {
-  // Animate numbers counting up when scrolled into view
   const numbers = block.querySelectorAll('h2');
 
   if (!('IntersectionObserver' in window)) return;
@@ -16,10 +15,12 @@ export default function decorate(block) {
     const update = (now) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - ((1 - progress) ** 3);
       const current = target * eased;
-      el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current).toLocaleString()) + suffix;
+      const display = isDecimal
+        ? current.toFixed(1)
+        : Math.floor(current).toLocaleString();
+      el.textContent = display + suffix;
       if (progress < 1) requestAnimationFrame(update);
     };
     requestAnimationFrame(update);
@@ -30,7 +31,7 @@ export default function decorate(block) {
       if (!entry.isIntersecting) return;
       numbers.forEach((el) => {
         const { num, suffix } = parseValue(el.textContent);
-        if (!isNaN(num)) animateCount(el, num, suffix);
+        if (!Number.isNaN(num)) animateCount(el, num, suffix);
       });
       observer.disconnect();
     });

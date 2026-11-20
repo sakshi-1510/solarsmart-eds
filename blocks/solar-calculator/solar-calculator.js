@@ -1,12 +1,4 @@
 export default function decorate(block) {
-  const rows = [...block.querySelectorAll(':scope > div > div')];
-  const config = {};
-  rows.forEach((row) => {
-    const cols = [...row.querySelectorAll(':scope > div, p')];
-    // config rows have label in first p, value in second p
-  });
-
-  // Read authored config from block rows
   let apiEndpoint = 'https://api.solarsmart.com/v1/calculate';
   let submitLabel = 'Calculate My Savings';
   const fields = [];
@@ -22,7 +14,6 @@ export default function decorate(block) {
     if (key && val) fields.push({ label: key, type: val, defaultValue: def || '' });
   });
 
-  // Build the form
   block.innerHTML = '';
   const form = document.createElement('form');
   form.noValidate = true;
@@ -70,24 +61,42 @@ export default function decorate(block) {
       if (!res.ok) throw new Error(`Server error ${res.status}`);
       const data = await res.json();
 
-      // Render results — expect { annualSavings, paybackYears, co2Tons, homeValueIncrease }
       const metrics = [
-        { value: data.annualSavings ? `$${Number(data.annualSavings).toLocaleString()}` : '—', label: 'Est. Annual Savings' },
-        { value: data.paybackYears ? `${data.paybackYears} yrs` : '—', label: 'Payback Period' },
-        { value: data.co2Tons ? `${data.co2Tons} T` : '—', label: 'CO₂ Offset / Year' },
-        { value: data.homeValueIncrease ? `+${data.homeValueIncrease}%` : '—', label: 'Home Value Uplift' },
+        {
+          value: data.annualSavings
+            ? `$${Number(data.annualSavings).toLocaleString()}`
+            : '—',
+          label: 'Est. Annual Savings',
+        },
+        {
+          value: data.paybackYears ? `${data.paybackYears} yrs` : '—',
+          label: 'Payback Period',
+        },
+        {
+          value: data.co2Tons ? `${data.co2Tons} T` : '—',
+          label: 'CO₂ Offset / Year',
+        },
+        {
+          value: data.homeValueIncrease
+            ? `+${data.homeValueIncrease}%`
+            : '—',
+          label: 'Home Value Uplift',
+        },
       ];
 
       metrics.forEach(({ value, label }) => {
         const card = document.createElement('div');
         card.className = 'result-card';
-        card.innerHTML = `<div class="value">${value}</div><div class="label">${label}</div>`;
+        card.innerHTML = `<div class="value">${value}</div>`
+          + `<div class="label">${label}</div>`;
         resultsEl.appendChild(card);
       });
 
       resultsEl.hidden = false;
-    } catch (err) {
-      resultsEl.innerHTML = `<div class="error">Something went wrong fetching your estimate. Please try again or <a href="/contact">contact us</a> for a personalised quote.</div>`;
+    } catch {
+      resultsEl.innerHTML = '<div class="error">Something went wrong. '
+        + 'Please try again or <a href="/contact">contact us</a> '
+        + 'for a personalised quote.</div>';
       resultsEl.hidden = false;
     } finally {
       btn.disabled = false;
