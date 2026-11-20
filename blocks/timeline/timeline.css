@@ -1,0 +1,79 @@
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 2rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #f5a623, #2ecc71);
+  border-radius: 3px;
+}
+
+.timeline > div {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+/* The dot on the line */
+.timeline > div::before {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  top: 0.4rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: #f5a623;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #f5a623;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* Label column (Week 1, Week 2…) */
+.timeline > div > div:first-child {
+  min-width: 6rem;
+  padding-left: 2.5rem;
+  padding-top: 0.1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #f5a623;
+  letter-spacing: 0.05em;
+}
+
+/* Content column */
+.timeline > div > div:last-child {
+  flex: 1;
+}
+
+.timeline > div > div:last-child h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--heading-color, #1a1a1a);
+}
+
+.timeline > div > div:last-child p {
+  margin: 0;
+  color: var(--body-color, #444);
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .timeline::before { left: 1rem; }
+  .timeline > div { padding-left: 0; }
+  .timeline > div::before { left: 0.25rem; }
+  .timeline > div > div:first-child {
+    min-width: 4.5rem;
+    padding-left: 1.75rem;
+    font-size: 0.65rem;
+  }
+}

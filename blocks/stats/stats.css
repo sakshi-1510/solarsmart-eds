@@ -1,0 +1,49 @@
+.stats > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 2rem;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.stats > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stats h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  margin: 0;
+  color: #f5a623;
+  line-height: 1;
+}
+
+.stats p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #444;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* When inside a highlighted section, flip colours */
+.section-metadata-highlight .stats h2,
+[data-style="highlight"] .stats h2 {
+  color: #fff;
+}
+
+[data-style="highlight"] .stats p {
+  color: rgba(255,255,255,0.8);
+}
+
+@media (max-width: 480px) {
+  .stats > div {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+  }
+}
