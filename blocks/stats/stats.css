@@ -37,10 +37,10 @@
 }
 
 [data-style="highlight"] .stats p {
-  color: rgba(255,255,255,0.8);
+  color: rgb(255 255 255 / 80%);
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .stats > div {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;

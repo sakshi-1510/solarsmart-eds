@@ -67,10 +67,11 @@
   line-height: 1.6;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .timeline::before { left: 1rem; }
   .timeline > div { padding-left: 0; }
   .timeline > div::before { left: 0.25rem; }
+
   .timeline > div > div:first-child {
     min-width: 4.5rem;
     padding-left: 1.75rem;
