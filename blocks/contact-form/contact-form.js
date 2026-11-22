@@ -129,7 +129,6 @@ export default async function decorate(block) {
     try {
       const resp = await fetch(submitEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 

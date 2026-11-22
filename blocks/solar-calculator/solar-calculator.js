@@ -166,7 +166,6 @@ export default function decorate(block) {
     try {
       const resp = await fetch(apiEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ monthlyBill, roofSqFt, zip }),
       });
 
