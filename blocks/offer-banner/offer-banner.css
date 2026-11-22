@@ -1,0 +1,118 @@
+.offer-banner { padding: 0; }
+
+.ob-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  background: #1a3c2e;
+  color: #fff;
+  flex-wrap: wrap;
+  border-bottom: 3px solid #22c55e;
+}
+
+@media (max-width: 768px) {
+  .ob-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+}
+
+.ob-badge {
+  background: #22c55e;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ob-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.ob-headline {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.ob-subtext {
+  font-size: 0.82rem;
+  color: #d1fae5;
+  line-height: 1.4;
+}
+
+.ob-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.1);
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+}
+
+.ob-countdown-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #d1fae5;
+}
+
+.ob-timer {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+}
+
+.ob-cta {
+  background: #22c55e;
+  color: #fff !important;
+  text-decoration: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.ob-cta:hover { background: #16a34a; }
+
+.ob-close {
+  background: transparent;
+  border: none;
+  color: #d1fae5;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: color 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+.ob-close:hover { color: #fff; background: rgba(255,255,255,0.15); }
+
+.ob-dismissed {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.ob-expired { opacity: 0.6; }
