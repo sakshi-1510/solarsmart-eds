@@ -1,9 +1,23 @@
 export default async function decorate(block) {
+  const rows = [...block.querySelectorAll(':scope > div')];
+  let formEndpoint = '/contact-form.json';
+  let submitEndpoint = 'https://solarsmart.free.beeceptor.com/lead';
+
+  rows.forEach((row) => {
+    const cols = row.querySelectorAll(':scope > div');
+    if (cols.length >= 2) {
+      const key = cols[0].textContent.trim();
+      const val = cols[1].textContent.trim();
+      if (key === 'Form Endpoint') formEndpoint = val;
+      if (key === 'Submit Endpoint') submitEndpoint = val;
+    }
+  });
+
   block.innerHTML = '<p class="cf-loading">Loading form…</p>';
 
   let fields = [];
   try {
-    const resp = await fetch('/contact-form.json');
+    const resp = await fetch(formEndpoint);
     if (!resp.ok) throw new Error('Sheet unavailable');
     const json = await resp.json();
     fields = json.data || [];
@@ -113,7 +127,7 @@ export default async function decorate(block) {
     const payload = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const resp = await fetch('/api/contact-submit', {
+      const resp = await fetch(submitEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

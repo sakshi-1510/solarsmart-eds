@@ -16,7 +16,7 @@ export default async function decorate(block) {
   const dismissed = sessionStorage.getItem(DISMISSED_KEY);
 
   try {
-    const resp = await fetch('/api/offers');
+    const resp = await fetch('https://solarsmart.free.beeceptor.com/offers');
     if (!resp.ok) throw new Error('API unavailable');
     const { offer, remainingMs } = await resp.json();
 
