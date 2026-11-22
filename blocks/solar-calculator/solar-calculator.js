@@ -166,7 +166,7 @@ export default function decorate(block) {
     try {
       const resp = await fetch(apiEndpoint, {
         method: 'POST',
-        body: JSON.stringify({ monthlyBill, roofSqFt, zip }),
+        body: new URLSearchParams({ monthlyBill, roofSqFt, zip }),
       });
 
       if (!resp.ok) throw new Error(`API error ${resp.status}`);

@@ -129,7 +129,7 @@ export default async function decorate(block) {
     try {
       const resp = await fetch(submitEndpoint, {
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: new URLSearchParams(payload),
       });
 
       const result = await resp.json();
