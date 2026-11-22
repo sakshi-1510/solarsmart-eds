@@ -74,8 +74,9 @@ export default async function handler(request) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(submission),
     });
-  } catch {
-    console.error('Sheet write failed');
+  } catch (err) {
+    // Sheet write failed — do not break the user experience
+    void err;
   }
 
   return new Response(JSON.stringify({

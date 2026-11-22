@@ -17,7 +17,14 @@ export default async function decorate(block) {
   form.noValidate = true;
 
   fields.forEach((field) => {
-    const { Name, Label, Type, Placeholder, Mandatory, Options } = field;
+    const {
+      Name,
+      Label,
+      Type,
+      Placeholder,
+      Mandatory,
+      Options,
+    } = field;
     if (!Name || !Type) return;
 
     const wrapper = document.createElement('div');

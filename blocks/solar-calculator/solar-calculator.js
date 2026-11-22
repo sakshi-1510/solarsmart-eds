@@ -26,13 +26,30 @@ export default function decorate(block) {
   });
 
   const FIELD_MAP = {
-    'Monthly Electricity Bill (USD)': { id: 'sc-bill', apiKey: 'monthlyBill', inputType: 'number', min: 10, max: 10000 },
-    'Usable Roof Area (sq ft)': { id: 'sc-roof', apiKey: 'roofSqFt', inputType: 'number', min: 50, max: 20000 },
-    'ZIP Code': { id: 'sc-zip', apiKey: 'zip', inputType: 'text', pattern: '[0-9]{5}', maxLength: 5 },
+    'Monthly Electricity Bill (USD)': {
+      id: 'sc-bill',
+      apiKey: 'monthlyBill',
+      inputType: 'number',
+      min: 10,
+      max: 10000,
+    },
+    'Usable Roof Area (sq ft)': {
+      id: 'sc-roof',
+      apiKey: 'roofSqFt',
+      inputType: 'number',
+      min: 50,
+      max: 20000,
+    },
+    'ZIP Code': {
+      id: 'sc-zip',
+      apiKey: 'zip',
+      inputType: 'text',
+      pattern: '[0-9]{5}',
+      maxLength: 5,
+    },
   };
 
   const submitLabel = config.submitLabel || 'Calculate My Savings';
-  // Always use our own API endpoint
   const apiEndpoint = '/api/calculate';
 
   block.innerHTML = '';
@@ -166,7 +183,9 @@ export default function decorate(block) {
       document.getElementById('sc-panels').textContent = `${data.numPanels} panels`;
       document.getElementById('sc-cost-before').textContent = `$${data.systemCostBeforeIncentives.toLocaleString()}`;
       document.getElementById('sc-itc').textContent = `−$${data.federalITC.toLocaleString()}`;
-      document.getElementById('sc-state').textContent = data.stateCredit > 0 ? `−$${data.stateCredit.toLocaleString()}` : 'N/A for this ZIP';
+      document.getElementById('sc-state').textContent = data.stateCredit > 0
+        ? `−$${data.stateCredit.toLocaleString()}`
+        : 'N/A for this ZIP';
       document.getElementById('sc-net-cost').textContent = `$${data.netSystemCost.toLocaleString()}`;
       document.getElementById('sc-offset').textContent = `${data.solarOffsetPercent}% of your usage`;
 

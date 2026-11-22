@@ -1,5 +1,15 @@
 const DISMISSED_KEY = 'ss-offer-dismissed';
 
+function formatTime(ms) {
+  const totalSecs = Math.floor(ms / 1000);
+  const days = Math.floor(totalSecs / 86400);
+  const hrs = Math.floor((totalSecs % 86400) / 3600);
+  const mins = Math.floor((totalSecs % 3600) / 60);
+  const secs = totalSecs % 60;
+  if (days > 0) return `${days}d ${hrs}h ${mins}m`;
+  return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
 export default async function decorate(block) {
   block.innerHTML = '';
 
@@ -39,17 +49,6 @@ export default async function decorate(block) {
     if (remainingMs) {
       let remaining = remainingMs;
       const timerEl = banner.querySelector('#ob-timer');
-
-      function formatTime(ms) {
-        const totalSecs = Math.floor(ms / 1000);
-        const days = Math.floor(totalSecs / 86400);
-        const hrs = Math.floor((totalSecs % 86400) / 3600);
-        const mins = Math.floor((totalSecs % 3600) / 60);
-        const secs = totalSecs % 60;
-        if (days > 0) return `${days}d ${hrs}h ${mins}m`;
-        return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-      }
-
       timerEl.textContent = formatTime(remaining);
 
       const interval = setInterval(() => {

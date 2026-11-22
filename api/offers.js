@@ -1,5 +1,10 @@
 const OFFERS_SHEET = '/offers.json';
 
+function getRemainingMs(offer) {
+  if (!offer.expires) return null;
+  return Math.max(0, new Date(offer.expires).getTime() - Date.now());
+}
+
 export default async function handler(request) {
   if (request.method === 'OPTIONS') {
     return new Response(null, {
@@ -18,10 +23,11 @@ export default async function handler(request) {
   }
 
   const url = new URL(request.url);
-  const requestedId = url.searchParams.get('id');
+  const { searchParams } = url;
+  const requestedId = searchParams.get('id');
 
   try {
-    const origin = url.origin;
+    const { origin } = url;
     const resp = await fetch(`${origin}${OFFERS_SHEET}`);
     if (!resp.ok) throw new Error('Sheet unavailable');
     const json = await resp.json();
@@ -69,12 +75,10 @@ export default async function handler(request) {
   } catch {
     return new Response(JSON.stringify({ error: 'Failed to load offers', offer: null }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     });
   }
-}
-
-function getRemainingMs(offer) {
-  if (!offer.expires) return null;
-  return Math.max(0, new Date(offer.expires).getTime() - Date.now());
 }
