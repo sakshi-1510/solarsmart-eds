@@ -76,7 +76,6 @@ export default async function handler(request) {
     });
   } catch (err) {
     // Sheet write failed — do not break the user experience
-    void err;
   }
 
   return new Response(JSON.stringify({

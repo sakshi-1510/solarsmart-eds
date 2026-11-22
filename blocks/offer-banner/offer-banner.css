@@ -11,7 +11,7 @@
   border-bottom: 3px solid #22c55e;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .ob-banner {
     flex-direction: column;
     align-items: flex-start;
@@ -59,7 +59,7 @@
   align-items: center;
   gap: 0.1rem;
   flex-shrink: 0;
-  background: rgba(255,255,255,0.1);
+  background: rgb(255 255 255 / 10%);
   padding: 0.4rem 0.75rem;
   border-radius: 8px;
 }
@@ -107,7 +107,7 @@
   line-height: 1;
 }
 
-.ob-close:hover { color: #fff; background: rgba(255,255,255,0.15); }
+.ob-close:hover { color: #fff; background: rgb(255 255 255 / 15%); }
 
 .ob-dismissed {
   opacity: 0;
