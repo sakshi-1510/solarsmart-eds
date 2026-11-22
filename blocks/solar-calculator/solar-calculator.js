@@ -50,7 +50,7 @@ export default function decorate(block) {
   };
 
   const submitLabel = config.submitLabel || 'Calculate My Savings';
-  const apiEndpoint = '/api/calculate';
+  const apiEndpoint = config.apiEndpoint || '/api/calculate';
 
   block.innerHTML = '';
 
@@ -118,7 +118,7 @@ export default function decorate(block) {
       </div>
       <div class="sc-card">
         <span class="sc-val" id="sc-co2"></span>
-        <span class="sc-lbl">CO₂ Offset/yr</span>
+        <span class="sc-lbl">CO&#x2082; Offset/yr</span>
       </div>
       <div class="sc-card">
         <span class="sc-val" id="sc-trees"></span>
@@ -139,7 +139,7 @@ export default function decorate(block) {
     </div>
     <p class="sc-disclaimer">
       Estimates based on NREL sunlight data, EIA utility rates, and 400W monocrystalline panels.
-      Actual results vary. <a href="/contact">Get a precise quote →</a>
+      Actual results vary. <a href="/contact">Get a precise quote &#x2192;</a>
     </p>
   `;
 
@@ -182,9 +182,9 @@ export default function decorate(block) {
       document.getElementById('sc-system-kw').textContent = `${data.systemKw} kW`;
       document.getElementById('sc-panels').textContent = `${data.numPanels} panels`;
       document.getElementById('sc-cost-before').textContent = `$${data.systemCostBeforeIncentives.toLocaleString()}`;
-      document.getElementById('sc-itc').textContent = `−$${data.federalITC.toLocaleString()}`;
+      document.getElementById('sc-itc').textContent = `-$${data.federalITC.toLocaleString()}`;
       document.getElementById('sc-state').textContent = data.stateCredit > 0
-        ? `−$${data.stateCredit.toLocaleString()}`
+        ? `-$${data.stateCredit.toLocaleString()}`
         : 'N/A for this ZIP';
       document.getElementById('sc-net-cost').textContent = `$${data.netSystemCost.toLocaleString()}`;
       document.getElementById('sc-offset').textContent = `${data.solarOffsetPercent}% of your usage`;

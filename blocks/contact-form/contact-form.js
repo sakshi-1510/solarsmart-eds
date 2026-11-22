@@ -1,7 +1,7 @@
 export default async function decorate(block) {
   const rows = [...block.querySelectorAll(':scope > div')];
   let formEndpoint = '/contact-form.json';
-  let submitEndpoint = 'https://solarsmart.free.beeceptor.com/lead';
+  let submitEndpoint = '/api/contact-submit';
 
   rows.forEach((row) => {
     const cols = row.querySelectorAll(':scope > div');
@@ -149,9 +149,9 @@ export default async function decorate(block) {
 
       block.innerHTML = `
         <div class="cf-success">
-          <div class="cf-success-icon">✅</div>
+          <div class="cf-success-icon">&#x2705;</div>
           <h3>Message Received!</h3>
-          <p>${result.message}</p>
+          <p>${result.message || "Thank you! We'll be in touch within one business day."}</p>
           <p><a href="/solutions">Explore Our Solutions</a> while you wait.</p>
         </div>
       `;
