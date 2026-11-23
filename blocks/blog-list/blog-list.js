@@ -66,6 +66,7 @@ function renderPagination(container, total, pageSize, currentPage, onPageChange)
 }
 
 export default async function decorate(block) {
+  // Read config from block rows
   const rows = [...block.querySelectorAll(':scope > div')];
   const config = {};
   rows.forEach((row) => {
@@ -118,14 +119,9 @@ export default async function decorate(block) {
   const paginationEl = block.querySelector('.bl-pagination');
   const resultsEl = block.querySelector('.bl-results-info');
 
-  // Use aem.page origin when running inside DA canvas (preview.da.live)
-  const origin = window.location.hostname.includes('da.live')
-    ? 'https://main--solarsmart-eds--sakshi-1510.aem.page'
-    : '';
-
   // Fetch query index
   try {
-    const resp = await fetch(`${origin}${indexPath}`);
+    const resp = await fetch(indexPath);
     if (!resp.ok) throw new Error('Index unavailable');
     const json = await resp.json();
     allPosts = (json.data || []).filter((p) => p.path && p.path.startsWith(filterPath));
