@@ -11,7 +11,13 @@ import {
   loadCSS,
   buildBlock,
 } from './aem.js';
+import initMetadataHandler from './metadata-handler.js';
 
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMetadataHandler);
+} else {
+  initMetadataHandler();
+}
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
     createHTML: (s) => s, // avoid stack overflow
