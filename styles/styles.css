@@ -324,3 +324,14 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* ── Fix: Push main content below fixed nav ── */
+body main {
+  padding-top: var(--nav-height);
+}
+
+@media (width >= 900px) {
+  body main {
+    padding-top: 0;
+  }
+}
