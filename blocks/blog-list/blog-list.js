@@ -84,27 +84,14 @@ export default async function decorate(block) {
   const categories = (config.Categories || '').split(',').map((c) => c.trim()).filter(Boolean);
   const sortOptions = (config['Sort Options'] || 'newest').split(',').map((s) => s.trim());
 
-  block.innerHTML = '<p class="bl-loading">Loading articles…</p>';
-
-  // Fetch query index
-  let allPosts = [];
-  try {
-    const resp = await fetch(indexPath);
-    if (!resp.ok) throw new Error('Index unavailable');
-    const json = await resp.json();
-    allPosts = (json.data || []).filter((p) => p.path && p.path.startsWith(filterPath));
-  } catch {
-    block.innerHTML = '<p class="bl-error">Unable to load articles. Please try again shortly.</p>';
-    return;
-  }
-
   // State
   let currentPage = 1;
   let currentCategory = '';
   let currentSort = sortOptions[0] || 'newest';
   let searchQuery = '';
+  let allPosts = [];
 
-  // Build UI shell
+  // Build UI shell FIRST so controls always show
   block.innerHTML = `
     <div class="bl-controls">
       <div class="bl-search-wrap">
@@ -116,12 +103,12 @@ export default async function decorate(block) {
           ${categories.map((c) => `<option value="${c}">${c}</option>`).join('')}
         </select>
         <select class="bl-sort" aria-label="Sort articles">
-          ${sortOptions.map((s) => `<option value="${s}">${s.charAt(0).toUpperCase() + s.slice(1).replace('-', ' ')}</option>`).join('')}
+          ${sortOptions.map((s) => `<option value="${s}">${s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ')}</option>`).join('')}
         </select>
       </div>
     </div>
     <div class="bl-results-info"></div>
-    <div class="bl-grid"></div>
+    <div class="bl-grid"><p class="bl-loading">Loading articles…</p></div>
     <div class="bl-pagination"></div>
   `;
 
@@ -132,16 +119,30 @@ export default async function decorate(block) {
   const paginationEl = block.querySelector('.bl-pagination');
   const resultsEl = block.querySelector('.bl-results-info');
 
+  // Fetch query index
+  try {
+    const resp = await fetch(indexPath);
+    if (!resp.ok) throw new Error('Index unavailable');
+    const json = await resp.json();
+    allPosts = (json.data || []).filter((p) => p.path && p.path.startsWith(filterPath));
+  } catch {
+    gridEl.innerHTML = '<p class="bl-error">No articles available yet. Check back soon!</p>';
+  }
+
   function getFiltered() {
     let posts = [...allPosts];
-    if (currentCategory) posts = posts.filter((p) => p.category === currentCategory);
+    if (currentCategory) {
+      posts = posts.filter((p) => p.category === currentCategory);
+    }
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       posts = posts.filter((p) => (p.title || '').toLowerCase().includes(q)
         || (p.description || '').toLowerCase().includes(q)
         || (p.tags || '').toLowerCase().includes(q));
     }
-    if (SORT_OPTIONS[currentSort]) posts.sort(SORT_OPTIONS[currentSort]);
+    if (SORT_OPTIONS[currentSort]) {
+      posts.sort(SORT_OPTIONS[currentSort]);
+    }
     return posts;
   }
 
@@ -150,6 +151,13 @@ export default async function decorate(block) {
     const total = filtered.length;
     const start = (currentPage - 1) * pageSize;
     const pagePosts = filtered.slice(start, start + pageSize);
+
+    if (total === 0 && allPosts.length === 0) {
+      resultsEl.textContent = '';
+      gridEl.innerHTML = '<p class="bl-empty">No articles available yet. Check back soon!</p>';
+      paginationEl.innerHTML = '';
+      return;
+    }
 
     resultsEl.textContent = total === 0
       ? 'No articles found.'
