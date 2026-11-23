@@ -1,0 +1,277 @@
+/* ── Global ── */
+@media (width <= 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  main {
+    overflow-x: hidden;
+  }
+
+  main > div {
+    padding: 1.5rem 1rem;
+  }
+
+  h1 { font-size: clamp(1.6rem, 5vw, 2.5rem); }
+  h2 { font-size: clamp(1.3rem, 4vw, 2rem); }
+  h3 { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .button,
+  a.button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+/* ── Hero ── */
+@media (width <= 768px) {
+  .hero {
+    min-height: 320px;
+  }
+
+  .hero .hero-overlay {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero .hero-overlay h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero .hero-overlay p {
+    font-size: 0.95rem;
+  }
+
+  .hero .hero-overlay p:has(a) {
+    flex-direction: column;
+  }
+
+  .hero .hero-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Cards ── */
+@media (width <= 768px) {
+  .cards > ul,
+  .cards > div {
+    grid-template-columns: 1fr !important;
+    padding: 0;
+  }
+
+  .cards li,
+  .cards > div > div {
+    margin: 0 0 1rem;
+  }
+}
+
+/* ── Columns ── */
+@media (width <= 768px) {
+  .columns > div {
+    flex-direction: column !important;
+    gap: 1.5rem;
+  }
+
+  .columns > div > div {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+}
+
+/* ── Tabs ── */
+@media (width <= 768px) {
+  .tabs .tabs-list {
+    gap: 0.25rem;
+  }
+
+  .tabs .tabs-list button {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  .tabs .tabs-panel {
+    padding: 1rem;
+  }
+}
+
+/* ── Pricing ── */
+@media (width <= 768px) {
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pricing-featured {
+    transform: none !important;
+  }
+
+  .pricing-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .pricing-price {
+    font-size: 1.5rem;
+  }
+}
+
+/* ── FAQ ── */
+@media (width <= 768px) {
+  .faq {
+    margin: 0.5rem;
+  }
+
+  .faq-question {
+    font-size: 0.9rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .faq-answer {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Solar Calculator ── */
+@media (width <= 768px) {
+  .solar-calculator {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .sc-form .sc-inputs {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sc-cards {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .sc-val {
+    font-size: 1.3rem;
+  }
+
+  .sc-table td {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* ── Contact Form ── */
+@media (width <= 768px) {
+  .contact-form {
+    padding: 1.25rem 1rem;
+    margin: 0.5rem;
+  }
+
+  .cf-form {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Blog List ── */
+@media (width <= 768px) {
+  .bl-controls {
+    flex-direction: column;
+  }
+
+  .bl-search-wrap {
+    width: 100%;
+  }
+
+  .bl-filters {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .bl-category-filter,
+  .bl-sort {
+    width: 100%;
+  }
+
+  .bl-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .bl-card-title {
+    font-size: 0.95rem;
+  }
+}
+
+@media (width <= 480px) {
+  .bl-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Offer Banner ── */
+@media (width <= 768px) {
+  .ob-banner {
+    flex-direction: column;
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .ob-cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  .ob-countdown {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+}
+
+/* ── Nav ── */
+@media (width <= 768px) {
+  header nav {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.25rem;
+  }
+}
+
+/* ── Timeline ── */
+@media (width <= 768px) {
+  .timeline-track {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-step {
+    gap: 1rem;
+  }
+
+  .timeline-dot {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .timeline-title {
+    font-size: 1rem;
+  }
+}
+
+/* ── Stats ── */
+@media (width <= 768px) {
+  .stats > div,
+  .columns.highlight > div {
+    flex-direction: column !important;
+    text-align: center;
+  }
+}
