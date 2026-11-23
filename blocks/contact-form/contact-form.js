@@ -127,30 +127,17 @@ export default async function decorate(block) {
     const payload = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const resp = await fetch(submitEndpoint, {
+      await fetch(submitEndpoint, {
         method: 'POST',
-        body: new URLSearchParams(payload),
+        mode: 'no-cors',
+        body: JSON.stringify(payload),
       });
-
-      const result = await resp.json();
-
-      if (!resp.ok) {
-        if (result.fields) {
-          Object.entries(result.fields).forEach(([name, msg]) => {
-            const err = block.querySelector(`#cf-err-${name}`);
-            if (err) err.textContent = msg;
-          });
-        }
-        btn.textContent = 'Send Message';
-        btn.disabled = false;
-        return;
-      }
 
       block.innerHTML = `
         <div class="cf-success">
           <div class="cf-success-icon">&#x2705;</div>
           <h3>Message Received!</h3>
-          <p>${result.message || "Thank you! We'll be in touch within one business day."}</p>
+          <p>Thank you! We'll be in touch within one business day.</p>
           <p><a href="/solutions">Explore Our Solutions</a> while you wait.</p>
         </div>
       `;

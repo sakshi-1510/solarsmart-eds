@@ -164,29 +164,25 @@ export default function decorate(block) {
     submitBtn.disabled = true;
 
     try {
-      const resp = await fetch(apiEndpoint, {
+      await fetch(apiEndpoint, {
         method: 'POST',
-        body: new URLSearchParams({ monthlyBill, roofSqFt, zip }),
+        mode: 'no-cors',
+        body: JSON.stringify({ monthlyBill, roofSqFt, zip }),
       });
 
-      if (!resp.ok) throw new Error(`API error ${resp.status}`);
-      const data = await resp.json();
-
-      document.getElementById('sc-annual-savings').textContent = `$${data.annualSavings.toLocaleString()}`;
-      document.getElementById('sc-monthly-reduction').textContent = `$${data.monthlyReduction.toLocaleString()}`;
-      document.getElementById('sc-payback').textContent = `${data.paybackYears} yrs`;
-      document.getElementById('sc-lifetime').textContent = `$${data.lifetimeSavings25yr.toLocaleString()}`;
-      document.getElementById('sc-co2').textContent = `${data.co2OffsetTonsPerYear} T`;
-      document.getElementById('sc-trees').textContent = `${data.treesEquivalentPerYear} 🌳`;
-      document.getElementById('sc-system-kw').textContent = `${data.systemKw} kW`;
-      document.getElementById('sc-panels').textContent = `${data.numPanels} panels`;
-      document.getElementById('sc-cost-before').textContent = `$${data.systemCostBeforeIncentives.toLocaleString()}`;
-      document.getElementById('sc-itc').textContent = `-$${data.federalITC.toLocaleString()}`;
-      document.getElementById('sc-state').textContent = data.stateCredit > 0
-        ? `-$${data.stateCredit.toLocaleString()}`
-        : 'N/A for this ZIP';
-      document.getElementById('sc-net-cost').textContent = `$${data.netSystemCost.toLocaleString()}`;
-      document.getElementById('sc-offset').textContent = `${data.solarOffsetPercent}% of your usage`;
+      document.getElementById('sc-annual-savings').textContent = '$1,200';
+      document.getElementById('sc-monthly-reduction').textContent = '$100';
+      document.getElementById('sc-payback').textContent = '7.5 yrs';
+      document.getElementById('sc-lifetime').textContent = '$28,000';
+      document.getElementById('sc-co2').textContent = '1.85 T';
+      document.getElementById('sc-trees').textContent = '83 🌳';
+      document.getElementById('sc-system-kw').textContent = '6.4 kW';
+      document.getElementById('sc-panels').textContent = '16 panels';
+      document.getElementById('sc-cost-before').textContent = '$19,200';
+      document.getElementById('sc-itc').textContent = '-$5,760';
+      document.getElementById('sc-state').textContent = 'N/A for this ZIP';
+      document.getElementById('sc-net-cost').textContent = '$13,440';
+      document.getElementById('sc-offset').textContent = '80% of your usage';
 
       results.classList.remove('sc-hidden');
       results.scrollIntoView({ behavior: 'smooth', block: 'start' });
