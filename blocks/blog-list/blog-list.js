@@ -1,3 +1,9 @@
+function decodeHTML(str) {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = str;
+  return txt.value;
+}
+
 const SORT_OPTIONS = {
   newest: (a, b) => new Date(b['published-date']) - new Date(a['published-date']),
   oldest: (a, b) => new Date(a['published-date']) - new Date(b['published-date']),
@@ -66,7 +72,6 @@ function renderPagination(container, total, pageSize, currentPage, onPageChange)
 }
 
 export default async function decorate(block) {
-  // Read config from block rows
   const rows = [...block.querySelectorAll(':scope > div')];
   const config = {};
   rows.forEach((row) => {
@@ -81,11 +86,6 @@ export default async function decorate(block) {
   const indexPath = config['Index Path'] || '/query-index.json';
   const filterPath = config['Filter Path'] || '/blogs/';
   const pageSize = parseInt(config['Page Size'] || '6', 10);
-  function decodeHTML(str) {
-    const txt = document.createElement('textarea');
-    txt.innerHTML = str;
-    return txt.value;
-  }
 
   const categories = (config.Categories || '')
     .split(',')
@@ -96,14 +96,12 @@ export default async function decorate(block) {
     .split(',')
     .map((s) => s.trim());
 
-  // State
   let currentPage = 1;
   let currentCategory = '';
   let currentSort = sortOptions[0] || 'newest';
   let searchQuery = '';
   let allPosts = [];
 
-  // Build UI shell FIRST so controls always show
   block.innerHTML = `
     <div class="bl-controls">
       <div class="bl-search-wrap">
@@ -131,9 +129,12 @@ export default async function decorate(block) {
   const paginationEl = block.querySelector('.bl-pagination');
   const resultsEl = block.querySelector('.bl-results-info');
 
-  // Fetch query index
+  const origin = window.location.hostname.includes('da.live')
+    ? 'https://main--solarsmart-eds--sakshi-1510.aem.page'
+    : '';
+
   try {
-    const resp = await fetch(indexPath);
+    const resp = await fetch(`${origin}${indexPath}`);
     if (!resp.ok) throw new Error('Index unavailable');
     const json = await resp.json();
     allPosts = (json.data || []).filter((p) => p.path && p.path.startsWith(filterPath));
@@ -189,7 +190,6 @@ export default async function decorate(block) {
     });
   }
 
-  // Event listeners
   let searchTimeout;
   searchEl.addEventListener('input', () => {
     clearTimeout(searchTimeout);
