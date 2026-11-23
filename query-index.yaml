@@ -1,9 +1,9 @@
+version: 1
+
 indices:
   default:
     include:
       - /blogs/**
-    exclude:
-      - /blogs/index
     target: /query-index.json
     properties:
       title:
@@ -29,7 +29,4 @@ indices:
         value: attribute(el, 'content')
       reading-time:
         select: head > meta[name="reading-time"]
-        value: attribute(el, 'content')
-      template:
-        select: head > meta[name="template"]
         value: attribute(el, 'content')
