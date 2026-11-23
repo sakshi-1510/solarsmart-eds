@@ -81,8 +81,20 @@ export default async function decorate(block) {
   const indexPath = config['Index Path'] || '/query-index.json';
   const filterPath = config['Filter Path'] || '/blogs/';
   const pageSize = parseInt(config['Page Size'] || '6', 10);
-  const categories = (config.Categories || '').split(',').map((c) => c.trim()).filter(Boolean);
-  const sortOptions = (config['Sort Options'] || 'newest').split(',').map((s) => s.trim());
+  function decodeHTML(str) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = str;
+    return txt.value;
+  }
+
+  const categories = (config.Categories || '')
+    .split(',')
+    .map((c) => decodeHTML(c.trim()))
+    .filter(Boolean);
+
+  const sortOptions = (config['Sort Options'] || 'newest')
+    .split(',')
+    .map((s) => s.trim());
 
   // State
   let currentPage = 1;
