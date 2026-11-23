@@ -1,0 +1,60 @@
+.tabs .tabs-list {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+  border-bottom: 2px solid #d1fae5;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0;
+}
+
+.tabs .tabs-list button {
+  flex: 0 0 max-content;
+  margin: 0;
+  border: 2px solid #d1fae5;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.65rem 1.25rem;
+  background-color: #f8fafc;
+  color: #1a3c2e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: inherit;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.tabs .tabs-list button:hover {
+  background-color: #d1fae5;
+}
+
+.tabs .tabs-list button[aria-selected='true'] {
+  background-color: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+  cursor: default;
+}
+
+.tabs .tabs-panel {
+  padding: 2rem;
+  border: 2px solid #d1fae5;
+  border-radius: 0 8px 8px;
+  background: #fff;
+}
+
+.tabs .tabs-panel[aria-hidden='true'] {
+  display: none;
+}
+
+@media (width <= 600px) {
+  .tabs .tabs-list button {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .tabs .tabs-panel {
+    padding: 1.25rem;
+  }
+}

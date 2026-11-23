@@ -1,32 +1,45 @@
 version: 1
 
 indices:
-  default:
+  blogs:
     include:
       - /blogs/**
+
     target: /query-index.json
+
     properties:
+      path:
+        select: none
+        value: path
+
       title:
         select: head > meta[property="og:title"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
       description:
         select: head > meta[name="description"]
-        value: attribute(el, 'content')
-      image:
-        select: head > meta[name="image"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
       author:
         select: head > meta[name="author"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
       category:
         select: head > meta[name="category"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
       tags:
         select: head > meta[name="tags"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
       published-date:
         select: head > meta[name="published-date"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
       reading-time:
         select: head > meta[name="reading-time"]
-        value: attribute(el, 'content')
+        value: attribute(el, "content")
+
+      image:
+        select: head > meta[name="image"]
+        value: attribute(el, "content")
